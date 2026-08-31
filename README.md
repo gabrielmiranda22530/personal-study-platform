@@ -4,7 +4,7 @@ Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resol
 
 ##  Principais Funcionalidades
 
-* **Importação Mágica de tópucos:** Cole o texto bruto do seu roadmap e deixe a IA fatiar, organizar e criar a árvore de estudos estruturada.
+* **Importação Mágica de tópicos:** Cole o texto bruto do seu roadmap e deixe a IA fatiar, organizar e criar a árvore de estudos estruturada.
 * **Mapeamento de Ecossistema:** Ferramenta integrada de IA para detalhar tópicos vagos (ex: expandir "Java" para listar os frameworks e conceitos).
 * **Gestão Hierárquica:** Organização inteligente em Níveis: Disciplina > Bloco/Grupo > Tópico > Subtópicos (Anotações).
 * **Controle de Progresso:** Checklists dinâmicos e barra de progresso visual para acompanhar quanto evoluiu
