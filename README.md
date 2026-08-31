@@ -1,8 +1,8 @@
-# 📚 Planner de Estudos Inteligente com IA
+#  Planner de Estudos Inteligente com IA
 
 Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resolve a dor de se organizar sem muito padrão (especialmente na area de TI é interessante ter um rodmap) fatiando o conteúdo programático automaticamente em disciplinas, blocos temáticos, tópicos e subtópicos através de Inteligência Artificial ou manualmente
 
-## ✨ Principais Funcionalidades
+##  Principais Funcionalidades
 
 * **Importação Mágica de tópucos:** Cole o texto bruto do seu roadmap e deixe a IA fatiar, organizar e criar a árvore de estudos estruturada.
 * **Mapeamento de Ecossistema:** Ferramenta integrada de IA para detalhar tópicos vagos (ex: expandir "Java" para listar os frameworks e conceitos).
@@ -10,7 +10,7 @@ Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resol
 * **Controle de Progresso:** Checklists dinâmicos e barra de progresso visual para acompanhar quanto evoluiu
 * **Controle Híbrido:** Liberdade total para mesclar a automação da IA com a edição, adição e exclusão manual de disciplinas e tópicos.
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 Este projeto foi desenvolvido com uma stack moderna e de alta performance:
 
