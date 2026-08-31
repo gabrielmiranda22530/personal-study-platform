@@ -1,6 +1,6 @@
 #  Planner de Estudos Inteligente com IA
 
-Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resolve a dor de se organizar sem muito padrão (era uma dor pessoal, principalmente na area de tecnologia é interessante ter um rodmap) fatiando o conteúdo programático automaticamente em disciplinas, blocos temáticos, tópicos e subtópicos através de Inteligência Artificial ou manualmente
+Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resolve a dor de se organizar sem muito padrão (era uma dor pessoal, principalmente na area de tecnologia é interessante ter um rodmap) fatiando qualquer conteúdo programático extenso automaticamente de forma organizada em disciplinas, blocos temáticos, tópicos e subtópicos através de Inteligência Artificial ou manualmente
 
 ##  Principais Funcionalidades
 
