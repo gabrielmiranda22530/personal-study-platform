@@ -66,7 +66,7 @@ export default function Dashboard() {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Visão Geral' },
     { icon: Book, label: 'Trilhas & Módulos' },
-    { icon: CheckSquare, label: 'Questões' },
+    { icon: CheckSquare, label: 'Questões & Desafios técnicos' },
     { icon: Clock, label: 'Revisões' },
   ];
 
