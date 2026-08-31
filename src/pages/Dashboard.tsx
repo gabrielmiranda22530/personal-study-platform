@@ -1,11 +1,7 @@
 import {
   Book, Check, CheckCircle2, CheckSquare, ChevronDown, ChevronRight,
-  Circle, Clock, LayoutDashboard,
-  ListTree,
-  Loader2, LogOut, Pencil,
-  Plus,
-  Sparkles, Trash2,
-  X
+  Circle, Clock, LayoutDashboard, Loader2, LogOut, Pencil,
+  Sparkles, Trash2, Plus, X, ListTree
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -35,7 +31,9 @@ interface Disciplina {
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState('Disciplinas & Editais');
+  
+  // NOME DA ABA ALTERADO PARA O PORTFÓLIO
+  const [activeTab, setActiveTab] = useState('Trilhas & Módulos');
   
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [novaDisciplina, setNovaDisciplina] = useState('');
@@ -58,21 +56,22 @@ export default function Dashboard() {
   const [editingSubtopicoNome, setEditingSubtopicoNome] = useState('');
   const [isGeneratingSubtopicos, setIsGeneratingSubtopicos] = useState(false);
 
-  // Estados do Modal de Importação com IA (Edital)
+  // Estados do Modal de Importação com IA
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rawText, setRawText] = useState('');
   const [selectedModel, setSelectedModel] = useState('gemini-3.7-flash');
   const [isParsing, setIsParsing] = useState(false);
 
+  // MENU ALTERADO PARA O PORTFÓLIO
   const menuItems = [
     { icon: LayoutDashboard, label: 'Visão Geral' },
-    { icon: Book, label: 'Disciplinas & Editais' },
+    { icon: Book, label: 'Trilhas & Módulos' },
     { icon: CheckSquare, label: 'Questões' },
     { icon: Clock, label: 'Revisões' },
   ];
 
   useEffect(() => {
-    if (activeTab === 'Disciplinas & Editais' || activeTab === 'Visão Geral') {
+    if (activeTab === 'Trilhas & Módulos' || activeTab === 'Visão Geral') {
       fetchDisciplinasComTopicos();
     }
   }, [activeTab]);
@@ -92,7 +91,6 @@ export default function Dashboard() {
 
     setDisciplinas(agrupado);
     
-    // Atualiza o estado do modal se ele estiver aberto
     if (subtopicosModalTopico) {
       const topicoAtualizado = agrupado.flatMap(d => d.topicos || []).find(t => t.id === subtopicosModalTopico.id);
       if (topicoAtualizado) setSubtopicosModalTopico(topicoAtualizado);
@@ -193,7 +191,7 @@ export default function Dashboard() {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) throw new Error('Chave VITE_GEMINI_API_KEY ausente.');
       
-      const prompt = `O usuário está estudando TI para concursos públicos. O edital cobrou o tópico: "${subtopicosModalTopico.nome}". Liste o ecossistema desse tópico (principais frameworks, bibliotecas e conceitos-chave) que ele deve estudar.
+      const prompt = `O usuário está estudando tecnologia. O tópico principal é: "${subtopicosModalTopico.nome}". Liste o ecossistema desse tópico (principais frameworks, bibliotecas e conceitos-chave) que ele deve dominar.
       Retorne APENAS um array JSON puro de strings. Exemplo: ["Conceito 1", "Framework X", "Biblioteca Y"].`;
       
       const response = await fetch(
@@ -230,14 +228,14 @@ export default function Dashboard() {
     }
   }
 
-  // --- IA PARA EDITAL (BLOCOS) ---
+  // --- IA PARA IMPORTAÇÃO EM MASSA (BLOCOS) ---
   async function handleProcessarEditalIA() {
     if (!rawText.trim() || !user) return;
     const inputNome = (document.getElementById('manual-disciplina-nome') as HTMLInputElement)?.value || 'Tecnologia da Informação';
     setIsParsing(true);
     try {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      const prompt = `Você é um especialista em estruturar editais. Disciplina: "${inputNome}". Analise o texto do edital. Identifique BLOCOS de assunto e desmembre os SUBTÓPICOS. Retorne APENAS um array JSON puro: [{"bloco": "Banco de Dados", "topicos": ["MongoDB", "PostgreSQL"]}]. Texto: ${rawText}`;
+      const prompt = `Você é um especialista em estruturar trilhas de conhecimento. Assunto: "${inputNome}". Analise o texto fornecido. Identifique BLOCOS de assunto e desmembre os SUBTÓPICOS. Retorne APENAS um array JSON puro: [{"bloco": "Banco de Dados", "topicos": ["MongoDB", "PostgreSQL"]}]. Texto: ${rawText}`;
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
       const result = await response.json();
       let jsonLimpo = result.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -260,7 +258,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - Ocultada para focar no conteúdo principal */}
+      {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
         <div className="p-6"><h1 className="text-xl font-bold text-gray-900 flex items-center gap-2"><Book className="text-primary" /> Planner</h1></div>
         <nav className="flex-1 px-4 space-y-2">
@@ -276,20 +274,22 @@ export default function Dashboard() {
           
           {activeTab === 'Visão Geral' && (
             <div>
-              <header className="mb-8"><h2 className="text-2xl font-bold text-gray-900">Visão Geral do Edital</h2></header>
+              {/* TEXTOS ALTERADOS PARA PORTFÓLIO */}
+              <header className="mb-8"><h2 className="text-2xl font-bold text-gray-900">Dashboard de Aprendizado</h2></header>
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <div className="flex justify-between text-sm font-medium mb-2"><span>Progresso Geral</span><span>{percentualGeral}% concluído</span></div>
+                <div className="flex justify-between text-sm font-medium mb-2"><span>Cobertura da Trilha</span><span>{percentualGeral}% concluído</span></div>
                 <div className="w-full bg-gray-200 rounded-full h-3"><div className="bg-primary h-3 rounded-full transition-all duration-500" style={{ width: `${percentualGeral}%` }}></div></div>
               </div>
             </div>
           )}
 
-          {activeTab === 'Disciplinas & Editais' && (
+          {activeTab === 'Trilhas & Módulos' && (
             <div>
+              {/* TEXTOS ALTERADOS PARA PORTFÓLIO */}
               <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Disciplinas & Tópicos</h2>
-                  <p className="text-gray-600 mt-1">Gerencie a árvore de conteúdos do seu concurso.</p>
+                  <h2 className="text-2xl font-bold text-gray-900">Trilhas de Estudo</h2>
+                  <p className="text-gray-600 mt-1">Gerencie a árvore de conhecimentos e habilidades técnicas.</p>
                 </div>
                 <button onClick={() => setIsModalOpen(true)} className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-lg font-medium flex items-center gap-2 shadow-sm">
                   <Sparkles size={18} /> Importar com IA
@@ -297,13 +297,13 @@ export default function Dashboard() {
               </header>
 
               <form onSubmit={handleAddDisciplina} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex gap-4">
-                <input type="text" placeholder="Criar disciplina manual..." value={novaDisciplina} onChange={(e) => setNovaDisciplina(e.target.value)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg outline-none text-sm" />
+                <input type="text" placeholder="Criar trilha / disciplina manual..." value={novaDisciplina} onChange={(e) => setNovaDisciplina(e.target.value)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg outline-none text-sm" />
                 <button type="submit" className="bg-primary hover:bg-blue-600 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2 text-sm"><Plus size={18} /> Adicionar</button>
               </form>
 
               <div className="space-y-4">
                 {disciplinas.length === 0 ? (
-                  <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">Nenhuma disciplina cadastrada.</div>
+                  <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">Nenhuma trilha cadastrada.</div>
                 ) : (
                   disciplinas.map((disciplina) => {
                     const topicos = disciplina.topicos || [];
@@ -366,6 +366,7 @@ export default function Dashboard() {
                                               <input type="text" value={editingTopicoNome} onChange={(e) => setEditingTopicoNome(e.target.value)} className="w-2/3 text-sm border border-purple-500 rounded px-2 py-1 outline-none font-medium" autoFocus />
                                             </div>
                                           ) : (
+                                            /* O RISCO FOI REMOVIDO AQUI: a classe line-through não existe mais */
                                             <span onClick={() => handleToggleTopico(topico)} className="text-sm cursor-pointer flex-1 text-gray-700 font-medium hover:text-gray-900 transition-colors">
                                               {topico.nome}
                                             </span>
@@ -398,7 +399,7 @@ export default function Dashboard() {
                             ))}
 
                             <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t border-gray-200 mt-4">
-                              <input type="text" placeholder="Subtópico / Bloco..." value={novoTopicoGrupo[disciplina.id] || ''} onChange={(e) => setNovoTopicoGrupo({ ...novoTopicoGrupo, [disciplina.id]: e.target.value })} className="w-full sm:w-1/3 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-lg outline-none" />
+                              <input type="text" placeholder="Grupo / Módulo..." value={novoTopicoGrupo[disciplina.id] || ''} onChange={(e) => setNovoTopicoGrupo({ ...novoTopicoGrupo, [disciplina.id]: e.target.value })} className="w-full sm:w-1/3 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-lg outline-none" />
                               <input type="text" placeholder="Nome do novo tópico..." value={novoTopicoNome[disciplina.id] || ''} onChange={(e) => setNovoTopicoNome({ ...novoTopicoNome, [disciplina.id]: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && handleAddTopico(disciplina.id)} className="flex-1 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-lg outline-none" />
                               <button onClick={() => handleAddTopico(disciplina.id)} className="bg-gray-800 hover:bg-gray-900 text-white px-4 py-1.5 text-sm rounded-lg font-medium">Adicionar</button>
                             </div>
@@ -488,10 +489,9 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* MODAL IA EDITAL MANTIDO IGUAL... */}
+      {/* MODAL IA IMPORTAÇÃO DE TRILHA */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-           {/* Código do Modal de IA do edital ocultado para clareza, mas mantido exatamente como estava na sua versão anterior */}
           <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
             <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-gray-400"><X size={20} /></button>
             <div className="flex items-center gap-3 mb-4"><div className="p-2.5 bg-purple-100 text-purple-600 rounded-xl"><Sparkles size={24} /></div><div><h3 className="text-lg font-bold text-gray-900">Importação com Blocos</h3></div></div>
@@ -500,7 +500,13 @@ export default function Dashboard() {
               <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">Modelo de IA:</label>
               <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)} className="w-full p-2.5 text-sm border border-gray-300 rounded-xl bg-gray-50 outline-none"><option value="gemini-3.7-flash">Gemini 3.7 Flash</option><option value="gemini-3.6-flash">Gemini 3.6 Flash</option><option value="gemini-3.5-flash">Gemini 3.5 Flash</option></select>
             </div>
-            <div className="mb-4"><textarea rows={6} value={rawText} onChange={(e) => setRawText(e.target.value)} className="w-full p-3 text-sm border border-gray-300 rounded-xl outline-none font-mono"></textarea></div>
+            
+            {/* TEXTO ALTERADO PARA PORTFÓLIO: Ementa / Conteúdo Programático */}
+            <div className="mb-4">
+              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">Ementa / Conteúdo Programático:</label>
+              <textarea rows={6} value={rawText} onChange={(e) => setRawText(e.target.value)} className="w-full p-3 text-sm border border-gray-300 rounded-xl outline-none font-mono"></textarea>
+            </div>
+            
             <div className="flex justify-end gap-3"><button onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">Cancelar</button><button onClick={handleProcessarEditalIA} disabled={isParsing || !rawText.trim()} className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 text-sm font-medium rounded-lg flex items-center gap-2">{isParsing ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}Processar e Salvar</button></div>
           </div>
         </div>
