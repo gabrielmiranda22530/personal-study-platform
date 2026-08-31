@@ -41,4 +41,4 @@ Além disso, você precisará criar contas gratuitas para obter as chaves de API
 ```bash
 git clone [https://github.com/SEU-USUARIO/nome-do-repositorio.git](https://github.com/SEU-USUARIO/nome-do-repositorio.git)
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+
