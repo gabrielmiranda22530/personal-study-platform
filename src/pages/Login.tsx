@@ -36,9 +36,9 @@ export default function Login() {
           <div className="bg-primary/10 p-3 rounded-full text-primary mb-4">
             <BookOpen size={32} />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Concurso Planner</h1>
+          <h1 className="text-2xl font-bold text-gray-900">TechSkill Extreme</h1>
           <p className="text-gray-500 mt-2 text-center">
-            {isLogin ? 'Faça login para acessar seu plano' : 'Crie sua conta para começar'}
+            {isLogin ? 'Acesse seu painel de evolução continua' : 'Crie sua conta para começar'}
           </p>
         </div>
 
