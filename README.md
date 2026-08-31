@@ -12,7 +12,6 @@ Uma plataforma moderna e inteligente para gestão de estudos. Este projeto resol
 
 ##  Tecnologias Utilizadas
 
-Este projeto foi desenvolvido com uma stack moderna e de alta performance:
 
 ### Frontend
 * **React 18:** Biblioteca principal para construção da interface de usuário.
